@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>XR Portfolio Gallery</title>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+</head>
+
+<body style="margin:0; overflow:hidden;">
+
+<a-scene
+  background="color: #050b18"
+  fog="type: exponential; color: #050b18; density: 0.04">
+
+  <!-- ================= ASSETS ================= -->
+  <a-assets>
+    <img id="city" src="assets/city.png">
+    <img id="robotics" src="assets/robotics.png">
+    <img id="xr" src="assets/xr_simulation.png">
+    <img id="ui" src="assets/ui_design.png">
+    <img id="underwater" src="assets/underwater.png">
+    <img id="space" src="assets/space.png">
+  </a-assets>
+
+  <!-- ================= LIGHTING ================= -->
+  <a-light type="ambient" color="#0a1a2f" intensity="0.4"></a-light>
+
+  <a-light type="point"
+           position="0 5 -2"
+           color="#00d4ff"
+           intensity="1.8">
+  </a-light>
+
+  <a-light type="point"
+           position="-6 3 0"
+           color="#00aaff"
+           intensity="1.3">
+  </a-light>
+
+  <a-light type="point"
+           position="6 3 0"
+           color="#00aaff"
+           intensity="1.3">
+  </a-light>
+
+  <!-- ================= FLOOR ================= -->
+  <a-plane rotation="-90 0 0"
+           width="30"
+           height="30"
+           color="#071226">
+  </a-plane>
+
+  <!-- ================= ENTRANCE HERO ================= -->
+  <a-image src="#city"
+           position="0 2 -8"
+           width="6"
+           height="3.5">
+  </a-image>
+
+  <!-- ================= LEFT WALL ================= -->
+  <a-image src="#robotics"
+           position="-6 2 -4"
+           rotation="0 45 0"
+           width="4"
+           height="2.5">
+  </a-image>
+
+  <a-image src="#xr"
+           position="-6 2 0"
+           rotation="0 45 0"
+           width="4"
+           height="2.5">
+  </a-image>
+
+  <a-image src="#ui"
+           position="-6 2 4"
+           rotation="0 45 0"
+           width="4"
+           height="2.5">
+  </a-image>
+
+  <!-- ================= RIGHT WALL ================= -->
+  <a-image src="#underwater"
+           position="6 2 -4"
+           rotation="0 -45 0"
+           width="4"
+           height="2.5">
+  </a-image>
+
+  <a-image src="#space"
+           position="6 2 0"
+           rotation="0 -45 0"
+           width="4"
+           height="2.5">
+  </a-image>
+
+  <!-- ================= CAMERA ================= -->
+  <a-entity position="0 1.6 4">
+    <a-camera
+      wasd-controls="acceleration: 35"
+      look-controls="pointerLockEnabled: true">
+    </a-camera>
+  </a-entity>
+
+</a-scene>
+
+</body>
+</html>
