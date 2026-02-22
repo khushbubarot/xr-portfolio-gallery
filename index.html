@@ -1,104 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>XR Portfolio Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebXR Portfolio Gallery</title>
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script>
+    AFRAME.registerComponent('open-url', {
+      schema: { href: { type: 'string' } },
+      init: function () {
+        this.el.addEventListener('click', () => {
+          if (this.data.href) {
+            window.open(this.data.href, '_blank', 'noopener');
+          }
+        });
+      }
+    });
+  </script>
 </head>
-
-<body style="margin:0; overflow:hidden;">
+<body style="margin:0; overflow:hidden; background:#03060f;">
 
 <a-scene
-  background="color: #050b18"
-  fog="type: exponential; color: #050b18; density: 0.04">
+  renderer="antialias: true; colorManagement: true"
+  background="color: #02040b"
+  fog="type: exponential; color: #091126; density: 0.025">
 
-  <!-- ================= ASSETS ================= -->
-  <a-assets>
-    <img id="city" src="assets/city.png">
-    <img id="robotics" src="assets/robotics.png">
-    <img id="xr" src="assets/xr_simulation.png">
-    <img id="ui" src="assets/ui_design.png">
-    <img id="underwater" src="assets/underwater.png">
-    <img id="space" src="assets/space.png">
+  <a-assets timeout="10000">
+    <img id="skyTexture" src="assets/images/city.png" alt="City Sky">
+    <img id="imgCity" src="assets/images/city.png" alt="City">
+    <img id="imgRobotics" src="assets/images/robotics.png" alt="Robotics">
+    <img id="imgXR" src="assets/images/xr_simulation.png" alt="XR Simulation">
+    <img id="imgUI" src="assets/images/ui_design.png" alt="UI Design">
+    <img id="imgUnderwater" src="assets/images/underwater.png" alt="Underwater">
+    <img id="imgSpace" src="assets/images/space.png" alt="Space">
   </a-assets>
 
-  <!-- ================= LIGHTING ================= -->
-  <a-light type="ambient" color="#0a1a2f" intensity="0.4"></a-light>
+  <!-- 360 immersive background -->
+  <a-sky src="#skyTexture" rotation="0 -130 0"></a-sky>
 
-  <a-light type="point"
-           position="0 5 -2"
-           color="#00d4ff"
-           intensity="1.8">
-  </a-light>
+  <!-- Neon / cyber lighting -->
+  <a-light type="ambient" color="#5f7dff" intensity="0.45"></a-light>
+  <a-light type="point" position="0 5 0" color="#3ed7ff" intensity="1.6" distance="30"></a-light>
+  <a-light type="point" position="-7 3 -3" color="#ff4fe3" intensity="1.1" distance="25"></a-light>
+  <a-light type="point" position="7 3 -3" color="#00ffc6" intensity="1.1" distance="25"></a-light>
+  <a-light type="spot" position="0 8 6" rotation="-45 0 0" color="#9bb8ff" intensity="0.7" angle="40" penumbra="0.4"></a-light>
 
-  <a-light type="point"
-           position="-6 3 0"
-           color="#00aaff"
-           intensity="1.3">
-  </a-light>
-
-  <a-light type="point"
-           position="6 3 0"
-           color="#00aaff"
-           intensity="1.3">
-  </a-light>
-
-  <!-- ================= FLOOR ================= -->
-  <a-plane rotation="-90 0 0"
-           width="30"
-           height="30"
-           color="#071226">
+  <!-- Floor -->
+  <a-plane
+    rotation="-90 0 0"
+    width="50"
+    height="50"
+    color="#0b1226"
+    material="roughness: 0.9; metalness: 0.1; opacity: 0.97">
   </a-plane>
 
-  <!-- ================= ENTRANCE HERO ================= -->
-  <a-image src="#city"
-           position="0 2 -8"
-           width="6"
-           height="3.5">
-  </a-image>
+  <!-- Curved portfolio frames -->
+  <a-entity id="galleryRing">
 
-  <!-- ================= LEFT WALL ================= -->
-  <a-image src="#robotics"
-           position="-6 2 -4"
-           rotation="0 45 0"
-           width="4"
-           height="2.5">
-  </a-image>
+    <a-entity class="clickable" position="-6 2 -8" rotation="0 35 0" open-url="href: https://example.com/city-project"
+              animation__hover="property: scale; startEvents: mouseenter; dur: 180; to: 1.07 1.07 1.07"
+              animation__leave="property: scale; startEvents: mouseleave; dur: 180; to: 1 1 1">
+      <a-plane width="3.55" height="2.35" material="color: #35e8ff; emissive: #0ba4d6; emissiveIntensity: 0.45; metalness: 0.5; roughness: 0.25"></a-plane>
+      <a-plane width="3.35" height="2.15" color="#0e162d" position="0 0 0.01"></a-plane>
+      <a-image src="#imgCity" width="3.2" height="2" position="0 0 0.02"></a-image>
+    </a-entity>
 
-  <a-image src="#xr"
-           position="-6 2 0"
-           rotation="0 45 0"
-           width="4"
-           height="2.5">
-  </a-image>
+    <a-entity class="clickable" position="-3.6 2 -5.8" rotation="0 22 0" open-url="href: https://example.com/robotics-project"
+              animation__hover="property: scale; startEvents: mouseenter; dur: 180; to: 1.07 1.07 1.07"
+              animation__leave="property: scale; startEvents: mouseleave; dur: 180; to: 1 1 1">
+      <a-plane width="3.55" height="2.35" material="color: #35e8ff; emissive: #0ba4d6; emissiveIntensity: 0.45; metalness: 0.5; roughness: 0.25"></a-plane>
+      <a-plane width="3.35" height="2.15" color="#0e162d" position="0 0 0.01"></a-plane>
+      <a-image src="#imgRobotics" width="3.2" height="2" position="0 0 0.02"></a-image>
+    </a-entity>
 
-  <a-image src="#ui"
-           position="-6 2 4"
-           rotation="0 45 0"
-           width="4"
-           height="2.5">
-  </a-image>
+    <a-entity class="clickable" position="-1.2 2 -4.8" rotation="0 8 0" open-url="href: https://example.com/xr-simulation-project"
+              animation__hover="property: scale; startEvents: mouseenter; dur: 180; to: 1.07 1.07 1.07"
+              animation__leave="property: scale; startEvents: mouseleave; dur: 180; to: 1 1 1">
+      <a-plane width="3.55" height="2.35" material="color: #35e8ff; emissive: #0ba4d6; emissiveIntensity: 0.45; metalness: 0.5; roughness: 0.25"></a-plane>
+      <a-plane width="3.35" height="2.15" color="#0e162d" position="0 0 0.01"></a-plane>
+      <a-image src="#imgXR" width="3.2" height="2" position="0 0 0.02"></a-image>
+    </a-entity>
 
-  <!-- ================= RIGHT WALL ================= -->
-  <a-image src="#underwater"
-           position="6 2 -4"
-           rotation="0 -45 0"
-           width="4"
-           height="2.5">
-  </a-image>
+    <a-entity class="clickable" position="1.2 2 -4.8" rotation="0 -8 0" open-url="href: https://example.com/ui-design-project"
+              animation__hover="property: scale; startEvents: mouseenter; dur: 180; to: 1.07 1.07 1.07"
+              animation__leave="property: scale; startEvents: mouseleave; dur: 180; to: 1 1 1">
+      <a-plane width="3.55" height="2.35" material="color: #35e8ff; emissive: #0ba4d6; emissiveIntensity: 0.45; metalness: 0.5; roughness: 0.25"></a-plane>
+      <a-plane width="3.35" height="2.15" color="#0e162d" position="0 0 0.01"></a-plane>
+      <a-image src="#imgUI" width="3.2" height="2" position="0 0 0.02"></a-image>
+    </a-entity>
 
-  <a-image src="#space"
-           position="6 2 0"
-           rotation="0 -45 0"
-           width="4"
-           height="2.5">
-  </a-image>
+    <a-entity class="clickable" position="3.6 2 -5.8" rotation="0 -22 0" open-url="href: https://example.com/underwater-project"
+              animation__hover="property: scale; startEvents: mouseenter; dur: 180; to: 1.07 1.07 1.07"
+              animation__leave="property: scale; startEvents: mouseleave; dur: 180; to: 1 1 1">
+      <a-plane width="3.55" height="2.35" material="color: #35e8ff; emissive: #0ba4d6; emissiveIntensity: 0.45; metalness: 0.5; roughness: 0.25"></a-plane>
+      <a-plane width="3.35" height="2.15" color="#0e162d" position="0 0 0.01"></a-plane>
+      <a-image src="#imgUnderwater" width="3.2" height="2" position="0 0 0.02"></a-image>
+    </a-entity>
 
-  <!-- ================= CAMERA ================= -->
-  <a-entity position="0 1.6 4">
+    <a-entity class="clickable" position="6 2 -8" rotation="0 -35 0" open-url="href: https://example.com/space-project"
+              animation__hover="property: scale; startEvents: mouseenter; dur: 180; to: 1.07 1.07 1.07"
+              animation__leave="property: scale; startEvents: mouseleave; dur: 180; to: 1 1 1">
+      <a-plane width="3.55" height="2.35" material="color: #35e8ff; emissive: #0ba4d6; emissiveIntensity: 0.45; metalness: 0.5; roughness: 0.25"></a-plane>
+      <a-plane width="3.35" height="2.15" color="#0e162d" position="0 0 0.01"></a-plane>
+      <a-image src="#imgSpace" width="3.2" height="2" position="0 0 0.02"></a-image>
+    </a-entity>
+
+  </a-entity>
+
+  <!-- Walkable camera + pointer lock mouse look -->
+  <a-entity position="0 1.6 3">
     <a-camera
       wasd-controls="acceleration: 35"
-      look-controls="pointerLockEnabled: true">
+      look-controls="pointerLockEnabled: true"
+      raycaster="objects: .clickable; far: 20"
+      cursor="rayOrigin: entity">
     </a-camera>
   </a-entity>
 
